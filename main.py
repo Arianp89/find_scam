@@ -8,17 +8,20 @@ bot=telebot.TeleBot(API_TOKEN)
 
 
 
-checks_time_num=dict()
-def find_scam(cid):
-    global checks_time_num
+find_scam_data=dict()     #{cid:[len,time],...}
+def find_scam(cid,maximum_time,maximum_watch):  
+    global find_scam_data
     now = time.time()
-    if id not in checks_time_num:
-        checks_time_num[cid]=[0,time.time()]
-    if now-checks_time_num[cid][1] < 5:
-        checks_time_num[cid][0] += 1
-    if checks_time_num[cid][0] == 5+1:
+    if cid not in find_scam_data:
+        find_scam_data[cid]=[0,time.time()]
+    if now-find_scam_data[cid][1] < maximum_time:
+        find_scam_data[cid][0] += 1
+        print(find_scam_data[cid][0])
+    if find_scam_data[cid][0] == maximum_watch:
         add_customer_black_list(cid)
-    checks_time_num[id][1]=time.time()
+    find_scam_data[cid][1]=time.time()
+
+
 
 
 
@@ -26,7 +29,7 @@ def find_scam(cid):
 def listener(messages):
     for m in messages:
         # print(m)
-        find_scam(m.chat.id)
+        find_scam(m.chat.id,3,5)
         if m.content_type == 'text':
             print(f"{m.chat.first_name} [{str(m.chat.id)}]: {m.text}")
         elif m.content_type == 'photo':
