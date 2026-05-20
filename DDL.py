@@ -1,3 +1,4 @@
+# to create database
 import mysql.connector
 from config import db_config,database_name
 
@@ -21,7 +22,6 @@ def create_table_customer(database_name):
     CREATE TABLE CUSTOMER(
     `ID`                BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `NAME`              VARCHAR(20) ,
-    `BLACK_LIST`        VARCHAR(5)  ,
     `REGISTER_DATE`     DATETIME DEFAULT CURRENT_TIMESTAMP,
     `LAST_UPDATE`       DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     );
@@ -31,3 +31,31 @@ def create_table_customer(database_name):
     cur.close()
     conn.close()
     print(f'table customer created successfully')
+
+
+def create_table_black_list(database_name):
+    conn=mysql.connector.connection.MySQLConnection(**db_config , database=database_name)
+    cur=conn.cursor()
+    SQL_Query="""
+    CREATE TABLE BLACK_LIST(
+    `CUSTOMER_ID`       BIGINT UNSIGNED NOT NULL,
+    `STATUS`            VARCHAR(5),
+    `STAGE`             INT,
+    `TIME`              INT,
+    `DON`               VARCHAR(5),
+    `REGEITER_DATE`     DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `LAST_UPDATE`       DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (CUSTOMER_ID) REFERENCES CUSTOMER(ID)
+    );
+    """
+    cur.execute(SQL_Query)
+    conn.commit()
+    cur.close()
+    conn.close()
+    print(f'table black_list created successfully')
+
+
+if __name__=="__main__":
+    create_database(database_name)
+    create_table_customer(database_name)
+    create_table_black_list(database_name)
