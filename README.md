@@ -1,14 +1,14 @@
-# 🛡️ Telegram Anti-Scam & Anti-Spam Bot
+# 🛡️ Telegram Anti-spam & Anti-Spam Bot
 
 [🔗 مستندات فارسی](PERSIONREADME.md)
 
-A smart, multi-threaded Telegram bot developed using `pyTelegramBotAPI`. This bot automatically detects, manages, and blocks spam and scam users based on their message rates within specific timeframes.
+A smart, multi-threaded Telegram bot developed using `pyTelegramBotAPI`. This bot automatically detects, manages, and blocks spam and spam users based on their message rates within specific timeframes.
 
 ---
 
 ## 🚀 Key Features
 
-* **Smart Scam/Spam Detection:** Analyzes user message rates per second and applies a multi-level blacklist.
+* **Smart spam/Spam Detection:** Analyzes user message rates per second and applies a multi-level blacklist.
 * **Multi-stage Punishment:** Automatically escalates repetitive offenders from Stage 1 to Stage 2 based on database records.
 * **Background Worker:** Uses Python `threading` to continuously check blacklist expirations without interrupting the bot's main loop.
 * **Advanced Message Listener:** Centrally logs various input formats (text, photos, documents, and voices).
